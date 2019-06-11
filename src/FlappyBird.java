@@ -73,9 +73,111 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
         g.setColor(Color.green.darker());
         g.fillRect(Column.x, column.y, column.width, column.height);
     }
+
+    public void jump() {
+        if (gameOver) {
+            bird = new Rectangle(WIDTH / 2 - 10, HEIGHT / 2 - 10, 20, 20);
+            columns.clear();
+            yMotion = 0;
+            score = 0;
+
+            addColumn(true);
+            addColumn(true);
+            addColumn(true);
+            addColumn(true);
+
+            gameOver = false;
+        }
+        if (!started) {
+            started = true;
+        } else if (!gameOver) {
+            if (yMotion > 0) {
+                yMotion = 0;
+            }
+            yMotion -= 10;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        renderer.repaint();
+        int speed = 10;
+
+		ticks++;
+
+		if (started)
+		{
+			for (int i = 0; i < columns.size(); i++)
+			{
+				Rectangle column = columns.get(i);
+
+				column.x -= speed;
+			}
+
+			if (ticks % 2 == 0 && yMotion < 15)
+			{
+				yMotion += 2;
+			}
+
+			for (int i = 0; i < columns.size(); i++)
+			{
+				Rectangle column = columns.get(i);
+
+				if (column.x + column.width < 0)
+				{
+					columns.remove(column);
+
+					if (column.y == 0)
+					{
+						addColumn(false);
+					}
+				}
+			}
+
+			bird.y += yMotion;
+
+			for (Rectangle column : columns)
+			{
+				if (column.y == 0 && bird.x + bird.width / 2 > column.x + column.width / 2 - 10 && bird.x + bird.width / 2 < column.x + column.width / 2 + 10)
+				{
+					score++;
+				}
+
+				if (column.intersects(bird))
+				{
+					gameOver = true;
+
+					if (bird.x <= column.x)
+					{
+						bird.x = column.x - bird.width;
+
+					}
+					else
+					{
+						if (column.y != 0)
+						{
+							bird.y = column.y - bird.height;
+						}
+						else if (bird.y < column.height)
+						{
+							bird.y = column.height;
+						}
+					}
+				}
+			}
+
+			if (bird.y > HEIGHT - 120 || bird.y < 0)
+			{
+				gameOver = true;
+			}
+
+			if (bird.y + yMotion >= HEIGHT - 120)
+			{
+				bird.y = HEIGHT - 120 - bird.height;
+				gameOver = true;
+			}
+		}
+
+		renderer.repaint();
     }
 
     public void repaint(Graphics g) {
