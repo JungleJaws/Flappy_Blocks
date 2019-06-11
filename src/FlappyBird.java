@@ -181,7 +181,37 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
     }
 
     public void repaint(Graphics g) {
-        // TODO: Auto-generate method
+        g.setColor(Color.cyan);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+
+        g.setColor(Color.orange);
+        g.fillRect(0, HEIGHT - 120, WIDTH, 120);
+
+        g.setColor(Color.green);
+        g.fillRect(0, HEIGHT - 120, WIDTH, 20);
+
+        g.setColor(Color.red);
+        g.fillRect(bird.x, bird.y, bird.width, bird.height);
+
+        for (Rectangle column : columns) {
+            paintColumn(g, column);
+        }
+
+        g.setColor(Color.white);
+        g.setFont(new Font("Times New Roman", 1, 100));
+
+        if (!started) {
+            g.drawString("Click to start!", 75, HEIGHT / 2 - 50);
+        }
+
+        if (gameOver) {
+            g.drawString("Game Over!", 100, HEIGHT / 2 - 50);
+
+        }
+
+        if (!gameOver && started) {
+            g.drawString(String.valueOf(score), WIDTH / 2 - 25, 100);
+        }
     }
 
     public static void main(String[] args) {
