@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+// import utilities needed
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +23,9 @@ import javax.swing.JFrame;
 // Import Timer
 import javax.swing.Timer;
 
-public class FlappyBird implements ActionListener, MouseListener, KeyListener{
+// Create class that implements Event Listeners
+public class FlappyBird implements ActionListener, MouseListener, KeyListener {
+    
     // create new instance of FlappyBird called flappyBird
     public static FlappyBird flappyBird;
     
@@ -40,6 +43,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
     public boolean gameOver, started;
     public Random rand;
 
+    // create method that draws items to the screen
     public FlappyBird() {
         JFrame jframe = new JFrame();
         Timer timer = new Timer(50, this);
@@ -69,7 +73,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
 
         timer.start();
     }
-
+    // create columns on start
     public void addColumn(boolean start) {
         int space = 300;
         int width = 100;
@@ -83,12 +87,12 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
             columns.add(new Rectangle(columns.get(columns.size() - 1).x, 0, width, HEIGHT - height - space));
         }
     }
-    
+    // draw the rectangles to the screen
     public void paintColumn(Graphics g, Rectangle column) {
         g.setColor(Color.green.darker());
         g.fillRect(column.x, column.y, column.width, column.height);
     }
-
+    // create jump method that resets the columns on game over
     public void jump() {
         if (gameOver) {
             bird = new Rectangle(WIDTH / 2 - 10, HEIGHT / 2 - 10, 20, 20);
@@ -112,7 +116,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
             yMotion -= 10;
         }
     }
-
+    // Tell the program to end when bird collides with columns
     @Override
     public void actionPerformed(ActionEvent e) {
         int speed = 10;
@@ -194,7 +198,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
 
 		renderer.repaint();
     }
-
+    // Tell the system where to draw the graphics on the page
     public void repaint(Graphics g) {
         g.setColor(Color.cyan);
         g.fillRect(0, 0, WIDTH, HEIGHT);
