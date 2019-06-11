@@ -65,8 +65,13 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
             columns.add(new Rectangle(WIDTH + width + (columns.size() - 1) * 300, 0, width, HEIGHT - height - space));
         } else {
             columns.add(new Rectangle(columns.get(columns.size() - 1).x + 600, HEIGHT - height - 120, width, height));
-            columns.add(new Rectangle(columns.get(columns.size() - 1 ).x, 0, width, HEIGHT - height - space));
+            columns.add(new Rectangle(columns.get(columns.size() - 1).x, 0, width, HEIGHT - height - space));
         }
+    }
+    
+    public void paintColumn(Graphics g, Rectangle column) {
+        g.setColor(Color.green.darker());
+        g.fillRect(Column.x, column.y, column.width, column.height);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
