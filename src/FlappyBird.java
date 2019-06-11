@@ -1,11 +1,21 @@
 // package flappyBird;
 
 // Import Graphics;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+// import event listeners
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 // Be sure to import JFrame(the window where the game will be displayed)
 import javax.swing.JFrame;
@@ -23,11 +33,16 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
     public Renderer renderer;
     // Set JFrame info inside the FlappyBird Function
 
+    // Define variables
     public Rectangle bird;
     public ArrayList<Rectangle> columns;
+    public int ticks, yMotion, score;
+    public boolean gameOver, started;
+    public Random rand;
+
     public FlappyBird() {
         JFrame jframe = new JFrame();
-        Timer timer = new Timer(20, this);
+        Timer timer = new Timer(50, this);
 
         renderer = new Renderer();
         rand = new Random();
@@ -71,7 +86,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
     
     public void paintColumn(Graphics g, Rectangle column) {
         g.setColor(Color.green.darker());
-        g.fillRect(Column.x, column.y, column.width, column.height);
+        g.fillRect(column.x, column.y, column.width, column.height);
     }
 
     public void jump() {
@@ -216,8 +231,48 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener{
 
     public static void main(String[] args) {
         flappyBird = new FlappyBird();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        jump();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            jump();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         
     }
 
+	@Override
+    public void mouseReleased(MouseEvent e) {
+        
+	}
+
+	@Override
+    public void mouseEntered(MouseEvent e) {
+        
+	}
+
+	@Override
+    public void mouseExited(MouseEvent e) {
+        
+	}
+
+	@Override
+    public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e){
+
+	}
     
 }
