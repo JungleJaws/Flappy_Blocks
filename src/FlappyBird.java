@@ -12,22 +12,29 @@ public class FlappyBird {
     // Set Height and Width of JFrame 
     public final int WIDTH = 800, HEIGHT = 800;
 
+    // Bring in the Renderer Method
+    public Renderer renderer;
     // Set JFrame info inside the FlappyBird Function
     public FlappyBird() {
         JFrame jframe = new JFrame();
+        renderer = new Renderer();
 
-        jframe.setResizeable(false);
+        jframe.add(renderer);
+        // jframe.setResizeable(false);
         jframe.setSize(WIDTH, HEIGHT);
         jframe.setVisible(true);
         // terminate program on close button
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    public void repaint(Graphics g) {
+        // TODO: Auto-generate method
+    }
+
     public static void main(String[] args) {
         flappyBird = new FlappyBird();
         
     }
 
-    public void repaint(Graphics g) {
-        // TODO: Auto-generate method
-    }
+    
 }
